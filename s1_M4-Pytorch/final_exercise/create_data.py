@@ -61,7 +61,7 @@ test_labels = torch.from_numpy(labels).type(torch.LongTensor)
 testset = TensorDataset(test_images, test_labels)
 torch.save(testset, f'{path}/test_set.pt')
 
-""
+"""
 class final_exercise_data(torchdata.Dataset):
     
     def __init__(self, npz_file):
@@ -87,7 +87,7 @@ class final_exercise_data(torchdata.Dataset):
 #transform = transforms.Compose([transforms.ToTensor(),
                                # transforms.Normalize((0.5,), (0.5,))])
 
-""
+"""
 
 trainset = torch.load(path+'training_set.pt')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
