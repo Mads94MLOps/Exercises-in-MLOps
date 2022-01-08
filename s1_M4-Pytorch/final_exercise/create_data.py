@@ -49,8 +49,6 @@ train_images = torch.from_numpy(train_images).type(torch.FloatTensor)
 train_labels = torch.from_numpy(train_labels).type(torch.LongTensor)
 
 trainset = TensorDataset(train_images, train_labels)
-#torch.save({'images':train_images,'labels':train_labels}, f'{path}/training_set.pt')
-#np.savez(path+'training_set.npz',images=train_images,labels=train_labels)''
 torch.save(trainset, f'{path}/training_set.pt')
 
 
@@ -63,7 +61,7 @@ test_labels = torch.from_numpy(labels).type(torch.LongTensor)
 testset = TensorDataset(test_images, test_labels)
 torch.save(testset, f'{path}/test_set.pt')
 
-
+"""
 class final_exercise_data(torchdata.Dataset):
     
     def __init__(self, npz_file):
@@ -89,10 +87,12 @@ class final_exercise_data(torchdata.Dataset):
 #transform = transforms.Compose([transforms.ToTensor(),
                                # transforms.Normalize((0.5,), (0.5,))])
 
+"""
+
 trainset = torch.load(path+'training_set.pt')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 
-testset = final_exercise_data(path+'test_set.pt')
+testset = torch.load(path+'test_set.pt')
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
 
 dataiter = iter(trainloader)
