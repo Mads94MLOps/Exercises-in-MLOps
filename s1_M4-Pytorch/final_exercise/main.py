@@ -70,7 +70,7 @@ class TrainOREvaluate(object):
                 print(f'Traning loss: {running_loss/len(trainloader)}')
         
         #torch.save(model, "C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/dtu_mlops/s1_getting_started/exercise_files/final_exercise/s1-M4_Pytorch/training_model.pt")
-        torch.save(model.state_dict(), "C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/dtu_mlops/s1_getting_started/exercise_files/final_exercise/s1-M4_Pytorch/training_model.pt")
+        torch.save(model.state_dict(), "C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/Exercises-in-MLOps/s1_M4-Pytorch/final_exercise/training_model.pt")
         
         
     def evaluate(self):

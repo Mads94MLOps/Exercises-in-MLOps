@@ -18,7 +18,7 @@ import torch.utils.data as torchdata
 from torch.utils.data import TensorDataset
 
 
-path = "C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/dtu_mlops/data/corruptmnist/"
+path = "C:/Users/Mads_/Desktop/dtu_mlops/data/corruptmnist/"
 
 
 
