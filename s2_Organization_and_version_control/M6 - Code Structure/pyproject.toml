@@ -1,0 +1,5 @@
+# TOML file created in the M7 exercises
+
+[tool.black]
+
+max-line-length = 100
