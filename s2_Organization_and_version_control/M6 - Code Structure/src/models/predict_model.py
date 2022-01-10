@@ -28,7 +28,7 @@ def predict():
     # data loading
     dataset = torch.load('data/processed/data_set_processed.pt')
     
-    batch_size = 16
+    batch_size = 64
     validation_split = .2
     shuffle_dataset = True
     random_seed= 42

@@ -8,23 +8,15 @@ from torch import nn
 from torch.utils.data.sampler import SubsetRandomSampler
 
 
-print('hello')
-
 def train():
     print("Training day and night")
-    '''       
-    parser = argparse.ArgumentParser(description='Training arguments')
-    parser.add_argument('--lr', default=0.1)
-    # add any additional argument that you want
-    args = parser.parse_args(sys.argv[2:])
-    print(args)
-    '''    
-    # TODO: Implement training loop here
+   
     model = MyAwesomeModel()
 
     dataset = torch.load('data/processed/data_set_processed.pt')
     
-    batch_size = 16
+    # initializing parameters 
+    batch_size = 64
     validation_split = .2
     shuffle_dataset = True
     random_seed= 42
@@ -44,23 +36,26 @@ def train():
 
     trainloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, 
                                        sampler=train_sampler)
- 
+    
+    # Define loss function and optimizer
     criterion = nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.003)
 
-
+    # Training loop
     epochs = 5
     losses = []
     print('Before training loop')
     for i in range(epochs):
         running_loss = 0
         for images, labels in trainloader:
-                
+            
+            # Return the tensor that has been flattened with images.shape[0] no. of rows and as many 
+            # columns as it takes to flatten the tensor
             images = images.view(images.shape[0], -1)
-                
+
+            # Setting gradient to zero    
             optimizer.zero_grad()
-            #import pdb
-            #pdb.set_trace()
+
             output = model(images)
             loss = criterion(output,labels)
             loss.backward()
@@ -72,15 +67,11 @@ def train():
         else:
             print(f'Traning loss: {running_loss/len(trainloader)}')
         losses.append(running_loss)
-        
-        #torch.save(model, "C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/dtu_mlops/s1_getting_started/exercise_files/final_exercise/s1-M4_Pytorch/training_model.pt")
+    
+    # Creates plot of losses and stores them in reports/figures
     plt.plot(losses)
-    # plt.title('model accuracy')
-    # plt.ylabel('accuracy')
-    # plt.xlabel('epoch')
-    # plt.legend(['train'], loc='upper left')
     plt.savefig('reports/figures/accuracy.png')
-    # plt.savefig('C:/Users/Mads_/OneDrive/Anvendt Kemi/Machine Learning Operations/Exercises-in-MLOps/s2_Organization_and_version_control/M6 - Code Structure/reports/figures/accuracy.png')
+    
     torch.save(model.state_dict(), "models/training_model.pt")
 
 if __name__ == '__main__':

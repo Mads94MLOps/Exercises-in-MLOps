@@ -26,7 +26,7 @@ def main(input_filepath, output_filepath):
     for i,each_file in enumerate(os.listdir(input_filepath)):
 
         if each_file.endswith('.npz'):        
-            # Find the path of the file
+            # Loop that sorts the content of .npz files into images and labels and append them to a list
             data = np.load(os.path.join(input_filepath, each_file))
             images = data['images']
             labels = data['labels']
@@ -41,8 +41,10 @@ def main(input_filepath, output_filepath):
 
     from torchvision import transforms
 
-    norm_data_images = transforms.Normalize(0,1)(data_images)
+    # Normalizing the images with mean=0 and std=1
+    norm_data_images = transforms.Normalize(0,1)(data_images) 
 
+    # Creates a dataset of two tensors 
     data_set_tensor = TensorDataset(norm_data_images, data_labels)
     torch.save(data_set_tensor, f'{output_filepath}/data_set_processed.pt')
 
