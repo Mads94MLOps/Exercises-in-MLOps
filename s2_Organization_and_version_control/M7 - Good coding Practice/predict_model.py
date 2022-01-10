@@ -1,12 +1,11 @@
 import argparse
 import sys
 
-import numpy as np
 import torch
+import numpy as np
+from src.models.model import MyAwesomeModel
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
-
-from src.models.model import MyAwesomeModel
 
 
 def predict():
@@ -27,30 +26,28 @@ def predict():
     torch.set_grad_enabled(False)
 
     # data loading
-    dataset = torch.load("data/processed/data_set_processed.pt")
-
+    dataset = torch.load('data/processed/data_set_processed.pt')
+    
     batch_size = 64
-    validation_split = 0.2
+    validation_split = .2
     shuffle_dataset = True
-    random_seed = 42
+    random_seed= 42
 
     # Creating data indices for training and validation splits:
     dataset_size = len(dataset)
     indices = list(range(dataset_size))
     split = int(np.floor(validation_split * dataset_size))
-    if shuffle_dataset:
+    if shuffle_dataset :
         np.random.seed(random_seed)
         np.random.shuffle(indices)
     train_indices, val_indices = indices[split:], indices[:split]
 
     # Creating PT data samplers and loaders:
-    # train_sampler = SubsetRandomSampler(train_indices)
-
+    train_sampler = SubsetRandomSampler(train_indices)
     valid_sampler = SubsetRandomSampler(val_indices)
-
-    validation_loader = DataLoader(
-        dataset, batch_size=batch_size, sampler=valid_sampler
-    )
+    
+    validation_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
+                                                sampler=valid_sampler)
 
     # prediction
     acc_list = []
