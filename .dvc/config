@@ -1,0 +1,6 @@
+[core]
+    remote = remote_storage
+['remote "storage"']
+    url = gdrive://1F2L61Upyd9F4e5xyeC_YP2aE6jK03qNw
+['remote "remote_storage"']
+    url = ../bucket-for-dtumlops
