@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 import os
 from pathlib import Path
@@ -29,13 +28,15 @@ def main(input_filepath, output_filepath):
             data = np.load(os.path.join(input_filepath, each_file))
             images = data["images"]
             labels = data["labels"]
+            
             data_images.append(images)
             data_labels.append(labels)
 
     data_images = np.concatenate(data_images, axis=0)
     data_labels = np.concatenate(data_labels, axis=0)
-
-    data_images = torch.from_numpy(data_images).type(torch.FloatTensor)
+    
+    data_images = torch.from_numpy(data_images.swapaxes(1, 2).reshape(len(data_images),
+                 1, 28, 28)).type(torch.FloatTensor)
     data_labels = torch.from_numpy(data_labels).type(torch.LongTensor)
 
     # Normalizing the images with mean=0 and std=1
@@ -43,7 +44,27 @@ def main(input_filepath, output_filepath):
 
     # Creates a dataset of two tensors
     data_set_tensor = TensorDataset(norm_data_images, data_labels)
-    torch.save(data_set_tensor, f"{output_filepath}/data_set_processed.pt")
+
+    train_split = 0.8
+    random_seed=42
+
+    train_length=int(train_split* len(data_set_tensor))
+
+    test_length=len(data_set_tensor)-train_length
+
+    train_dataset,test_dataset=torch.utils.data.random_split(data_set_tensor,
+            (train_length,test_length),
+            generator=torch.Generator().manual_seed(random_seed)
+            )
+
+
+    torch.save({'Trainset':train_dataset,'Testset':test_dataset}, f"{output_filepath}/data_set_processed.pt")
+
+    data_set = torch.load(f"{output_filepath}/data_set_processed.pt")
+
+    print(data_set['Trainset'])
+    
+
 
 
 if __name__ == "__main__":
