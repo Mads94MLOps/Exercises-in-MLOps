@@ -3,8 +3,8 @@ from tests import _PATH_DATA
 from torch.utils.data import DataLoader
 from mock import patch
 
-#dataset_img = torch.load(f'{_PATH_DATA}/processed/data_set_processed.pt')
-dataset = torch.load('data/processed/data_set_processed.pt')
+dataset = torch.load(f'{_PATH_DATA}/processed/data_set_processed.pt')
+#dataset = torch.load('data/processed/data_set_processed.pt')
 print(len(dataset['Trainset']))
 print(len(dataset['Testset']))
 # initializing parameters

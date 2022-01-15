@@ -45,11 +45,13 @@ def train():
             # Return the tensor that has been flattened with images.shape[0] no. of rows and as many
             # columns as it takes to flatten the tensor
             images = images.view(images.shape[0], -1)
+            print(images.shape)
 
             # Setting gradient to zero
             optimizer.zero_grad()
 
             output = model(images)
+            print(output.shape)
             loss = criterion(output, labels)
             loss.backward()
 
