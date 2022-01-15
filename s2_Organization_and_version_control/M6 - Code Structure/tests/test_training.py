@@ -1,7 +1,7 @@
 import torch
 from torch import Tensor
 from src.models import train_model
-from src.models.model import MyAwesomeModel
+#from src.models.model import MyAwesomeModel
 import mock
 
 from tests import _PATH_DATA

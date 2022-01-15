@@ -31,20 +31,8 @@ def predict():
 
     # initializing parameters
     batch_size = 64
-    train_split = 0.8
-    random_seed=42
 
-    # Defining split
-    train_length=int(train_split* len(dataset))
-    test_length=len(dataset)-train_length
-
-    # Splitting
-    train_dataset,test_dataset=torch.utils.data.random_split(dataset,
-            (train_length,test_length),
-            generator=torch.Generator().manual_seed(random_seed)
-            )
-
-    validation_loader=torch.utils.data.DataLoader(test_dataset,
+    validation_loader=torch.utils.data.DataLoader(dataset['Testset'],
         batch_size=batch_size, shuffle=True)
 
     # prediction
