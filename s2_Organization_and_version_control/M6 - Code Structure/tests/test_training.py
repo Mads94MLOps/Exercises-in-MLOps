@@ -1,7 +1,6 @@
 import torch
 from torch import Tensor
 from src.models import train_model
-#from src.models.model import MyAwesomeModel
 import mock
 
 from tests import _PATH_DATA
@@ -10,8 +9,8 @@ from tests import _PATH_DATA
 def test_train(mock_MyAwesomeModel):
     try:
         train_model.train()
-    except ValueError:
+    except ValueError: # Otherwise it requires a optmizer
         pass
     #train_model.train()
 
-    mock_MyAwesomeModel.assert_called_once()
+    mock_MyAwesomeModel.assert_called_once() , "Training script does not call training model"
