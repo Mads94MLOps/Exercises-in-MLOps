@@ -29,28 +29,23 @@ def predict():
     # data loading
     dataset = torch.load("data/processed/data_set_processed.pt")
 
+    # initializing parameters
     batch_size = 64
-    validation_split = 0.2
-    shuffle_dataset = True
-    random_seed = 42
+    train_split = 0.8
+    random_seed=42
 
-    # Creating data indices for training and validation splits:
-    dataset_size = len(dataset)
-    indices = list(range(dataset_size))
-    split = int(np.floor(validation_split * dataset_size))
-    if shuffle_dataset:
-        np.random.seed(random_seed)
-        np.random.shuffle(indices)
-    train_indices, val_indices = indices[split:], indices[:split]
+    # Defining split
+    train_length=int(train_split* len(dataset))
+    test_length=len(dataset)-train_length
 
-    # Creating PT data samplers and loaders:
-    # train_sampler = SubsetRandomSampler(train_indices)
+    # Splitting
+    train_dataset,test_dataset=torch.utils.data.random_split(dataset,
+            (train_length,test_length),
+            generator=torch.Generator().manual_seed(random_seed)
+            )
 
-    valid_sampler = SubsetRandomSampler(val_indices)
-
-    validation_loader = DataLoader(
-        dataset, batch_size=batch_size, sampler=valid_sampler
-    )
+    validation_loader=torch.utils.data.DataLoader(test_dataset,
+        batch_size=batch_size, shuffle=True)
 
     # prediction
     acc_list = []

@@ -4,16 +4,16 @@ import torch.nn.functional as F
 
 class MyAwesomeModel(nn.Module):
 
-    '''
-        Convolutional Neural Network with three Linear transformations and two hidden layers,
-        with dropout.
-        The output layer is with softmax activation.
+    """
+    Convolutional Neural Network with three Linear transformations and two hidden layers,
+    with dropout.
+    The output layer is with softmax activation.
 
-            Parameters:
-                Variable to be predicted
-            Returns:
-                Prediction 
-    '''
+        Parameters:
+            Variable to be predicted
+        Returns:
+            Prediction
+    """
 
     def __init__(self):
         super().__init__()

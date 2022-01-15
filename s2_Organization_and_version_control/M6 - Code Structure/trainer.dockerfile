@@ -2,7 +2,9 @@
 FROM python:3.7-slim
 
 # install python
-RUN apt update && \ apt install --no-install-recommends -y build-essential gcc && \ apt clean && rm -rf /var/lib/apt/lists/*
+RUN apt update && \ 
+apt install --no-install-recommends -y build-essential gcc && \ 
+apt clean && rm -rf /var/lib/apt/lists/*
 
 # The above are common requirements for any docker application where you want to run python. 
 # The rest is application specific

@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from dotenv import find_dotenv, load_dotenv
 from torch.utils.data import TensorDataset
+from torchvision import transforms
 
 
 @click.command()
