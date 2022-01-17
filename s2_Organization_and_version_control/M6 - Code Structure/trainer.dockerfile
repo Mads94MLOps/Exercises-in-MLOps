@@ -14,14 +14,16 @@ COPY requirements.txt requirements.txt
 COPY setup.py setup.py
 COPY src/ src/
 COPY data/ data/
+COPY models/ models/
+COPY reports/ reports/
 
 # The above are neccerssary as requirements.txt specifies what packages is necessary to run the 
 # project, where setup.py works as an installation script for the packages. src and data contains
 # the code and data to train a model
 #------------
-# Set the working directory in our container and add commands that install the dependencies
-WORKDIR C:\Users\Mads_\OneDrive\Anvendt Kemi\Machine Learning Operations\Exercises-in-MLOps\
-        s2_Organization_and_version_control\M6 - Code Structure
+# Set the working directory in our container and add commands that install the dependencies.
+# (Don't add a path just run from the directory in the terminal)
+WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 # Cache stores the installation files. By having no-cache the installation files will not be 
 # stored and the Docker image will take less memory
